@@ -8,25 +8,18 @@ document.querySelectorAll('.page').forEach((page, index, pages) => {
             this.style.transform = 'rotateY(-180deg)';
             this.querySelector('.back').style.transform = 'rotateY(0deg)';
             this.querySelector('.front').style.opacity = 0;
+            // Set z-index to negative when flipped
+            this.style.zIndex = -(pages.length - index);
         } else {
             // When flipped back, rotate to show the front
             this.style.transform = 'rotateY(0deg)';
             this.querySelector('.back').style.transform = 'rotateY(180deg)';
             this.querySelector('.front').style.opacity = 1;
+            // Set z-index to positive when not flipped
+            this.style.zIndex = pages.length - index;
         }
 
-        // Adjust z-index for all pages to maintain correct stacking order on flip
-        pages.forEach((p, i) => {
-            if (p.classList.contains('flipped')) {
-                // Flipped pages should be above non-flipped pages
-                p.style.zIndex = pages.length - i + 1;
-            } else {
-                // Non-flipped pages should be below flipped pages
-                p.style.zIndex = pages.length - i - 1;
-            }
-        });
-
-        // Ensure the current page is on top
-        this.style.zIndex = pages.length;
+        // Ensure the current page is always on top in its respective stack
+        this.style.zIndex = this.classList.contains('flipped') ? -(pages.length - index) : pages.length - index;
     });
 });

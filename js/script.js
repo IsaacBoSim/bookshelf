@@ -32,3 +32,4 @@ document.querySelectorAll('.page').forEach((page, index, pages) => {
         });
     });
 });
+

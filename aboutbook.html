@@ -3,28 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Portfolio</title>
+    <title>About Me</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="book">
+        <div class="page" id="cover-page">
+            <div class="front" id="cover-front">
+                <h1>About Me Cover</h1>
+                <p>Welcome to my portfolio</p>
+            </div>
+            <div class="back">
+                <!-- Optional: Content for the back of the cover -->
+            </div>
+        </div>
+
+        <!-- Inner Pages -->
         <div class="page" id="page1">
             <div class="front" id="about1-content">
-                <!-- Content from about.html will be loaded here -->
+                <!-- Content from about1.html will be loaded here -->
             </div>
             <div class="back">
                 <!-- Blank back page -->
             </div>
         </div>
+
+        <!-- Inner Pages -->
         <div class="page" id="page2">
             <div class="front" id="about2-content">
-                <!-- Content from project.html will be loaded here -->
+                <!-- Content from about2.html will be loaded here -->
             </div>
             <div class="back">
+                <!-- Blank back page -->
+            </div>
+        </div>
+
+        <!-- Inner Pages -->
+        <div class="page" id="page3">
+            <div class="front" id="about3-content">
+                <!-- Content from about2.html will be loaded here -->
+            </div>
+            <div class="back">
+                <!-- Blank back page -->
+            </div>
+        </div>
+
+        <!-- End Cover Page -->
+        <div class="page" id="end-cover-page">
+            <div class="front">
+                <!-- Optional: Content for the front of the end cover -->
+            </div>
+            <div class="back" id="cover-back">
                 <!-- Blank back page -->
             </div>
         </div>
     </div>
+
+
     <script src="js/script.js"></script>
     <script>
         // Function to load content from external HTML files into specified elements
@@ -37,11 +72,15 @@
                 .catch(error => console.error('Error loading content:', error));
         }
 
-        // Load content from about.html into the element with id 'about-content'
+        // Load content from about1.html into the element with id 'about1-content'
         loadContent('aboutbook/about1.html', 'about1-content');
 
-        // Load content from project.html into the element with id 'project-content'
+        // Load content from about2.html into the element with id 'about2-content'
         loadContent('aboutbook/about2.html', 'about2-content');
+
+        loadContent('aboutbook/about3.html', 'about3-content');
     </script>
+
+
 </body>
 </html>

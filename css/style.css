@@ -6,22 +6,30 @@ body, html {
     background-color: #f5f5dc;
 }
 
+.bookshelf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .book {
     position: relative;
-    left: 50%;
-    top: 50%;
-    width: 60%;
-    height: 80%;
-    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 50%;
+    margin: 10px;
     perspective: 2000px;
+    cursor: pointer;
 }
 
 .page {
     position: absolute;
-    width: 50%;
+    width: 100%;
     height: 100%;
-    left: 50%;
-    margin-left: -25%;
     transform-origin: left;
     transition: transform 1s, z-index 0.5s;
     background-color: white;

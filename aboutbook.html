@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class="book">
+        <div class="sidebar">
+            <a href="#" onclick="navigateToPage(0)">Cover Page</a>
+            <a href="#" onclick="navigateToPage(1)">Page 1</a>
+            <a href="#" onclick="navigateToPage(2)">Page 2</a>
+            <a href="#" onclick="navigateToPage(3)">Page 3</a>
+            <a href="#" onclick="navigateToPage(4)">End Cover Page</a>
+        </div>
+
         <div class="page" id="cover-page" style="z-index: 4">
             <div class="front" id="cover-front" >
                 <div class="book-spine"></div>
@@ -16,6 +25,7 @@
                 <p>Welcome to my portfolio</p>
             </div>
             <div class="back">
+
                 <!-- Optional: Content for the back of the cover -->
             </div>
         </div>

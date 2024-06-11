@@ -3,100 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="bookshelf">
-        <div class="book" id="book1">
-            <div class="page" id="page1">
-                <div class="front" id="about-content">
-                    <!-- Content from about.html will be loaded here -->
-                </div>
-                <div class="back">
-                    <!-- Blank back page -->
-                </div>
-            </div>
-            <div class="page" id="page2">
-                <div class="front" id="project-content">
-                    <!-- Content from project.html will be loaded here -->
-                </div>
-                <div class="back">
-                    <!-- Blank back page -->
-                </div>
-            </div>
-        </div>
-        <div class="book" id="book2">
-            <div class="page" id="page3">
-                <div class="front" id="blog-content">
-                    <!-- Content from blog.html will be loaded here -->
-                </div>
-                <div class="back">
-                    <!-- Blank back page -->
-                </div>
-            </div>
-            <div class="page" id="page4">
-                <div class="front" id="contact-content">
-                    <!-- Content from contact.html will be loaded here -->
-                </div>
-                <div class="back">
-                    <!-- Blank back page -->
-                </div>
-            </div>
-        </div>
-        <!-- Add more books as needed -->
-    </div>
-    <script src="js/script.js"></script>
-    <script>
-        // Function to load content from external HTML files into specified elements
-        function loadContent(url, elementId) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading content:', error));
+    <title>Bookshelf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5dc;
+            margin: 0;
+            padding: 0;
         }
 
-        // Load content from about.html into the element with id 'about-content'
-        loadContent('about.html', 'about-content');
+        h1 {
+            margin-top: 20px;
+            color: #2c3e50;
+        }
 
-        // Load content from project.html into the element with id 'project-content'
-        loadContent('project.html', 'project-content');
+        .bookshelf-container {
+            width: 80%;
+            background-color: #8b4513;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            border-radius: 10px;
+        }
 
-        // Load content from blog.html into the element with id 'blog-content'
-        loadContent('blog.html', 'blog-content');
+        .bookshelf {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
 
-        // Load content from contact.html into the element with id 'contact-content'
-        loadContent('contact.html', 'contact-content');
+        .book {
+            width: 100px;
+            height: 150px;
+            margin: 0 20px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-        document.querySelectorAll('.page').forEach((page, index, pages) => {
-            page.addEventListener('click', function() {
-                // Toggle the flipped class to manage the flip state
-                this.classList.toggle('flipped');
-                if (this.classList.contains('flipped')) {
-                    // When flipped, rotate to show the back
-                    this.style.transform = 'rotateY(-180deg)';
-                    this.querySelector('.back').style.transform = 'rotateY(0deg)';
-                    this.querySelector('.front').style.opacity = 0;
-                } else {
-                    // When flipped back, rotate to show the front
-                    this.style.transform = 'rotateY(0deg)';
-                    this.querySelector('.back').style.transform = 'rotateY(180deg)';
-                    this.querySelector('.front').style.opacity = 1;
-                }
-                // Adjust z-index for all pages to maintain correct stacking order on flip
-                pages.forEach((p, i) => {
-                    if (p === this) {
-                        // Bring the current page to the front
-                        p.style.zIndex = pages.length;
-                    } else {
-                        // Push all other pages behind, maintaining their order
-                        p.style.zIndex = pages.length - i;
-                    }
-                });
-            });
-        });
+        .book:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            background-color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .book-cover h2 {
+            font-size: 14px;
+            color: white;
+            transform: rotate(-90deg);
+        }
+
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Bookshelf</h1>
+    <div class="bookshelf-container">
+        <div class="bookshelf">
+            <div class="book" onclick="openBook('aboutbook.html')">
+                <div class="book-cover">
+                    <h2>About Me</h2>
+                </div>
+            </div>
+            <div class="book" onclick="openBook('projectbook.html')">
+                <div class="book-cover">
+                    <h2>Projects</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe id="bookFrame" src=""></iframe>
+
+    <script>
+        function openBook(bookUrl) {
+            document.getElementById('bookFrame').src = bookUrl;
+        }
     </script>
 </body>
 </html>

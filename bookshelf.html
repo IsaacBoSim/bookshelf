@@ -43,6 +43,7 @@
             perspective: 1000px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
         .book:hover {
@@ -60,6 +61,22 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             color: white;
+            transition: transform 1s, opacity 1s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 100%;
+            background-color: #1c2e40;
+            left: -10px;
+            top: 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: -1;
         }
 
         .book-cover h2 {
@@ -75,6 +92,21 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
             border-radius: 10px;
+            display: none; /* Initially hide the iframe */
+        }
+
+        /* Animation styles */
+        .animate {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+            transition: transform 1s, opacity 1s;
+        }
+
+        .iframe-visible {
+            display: block;
         }
     </style>
 </head>
@@ -82,12 +114,12 @@
     <h1>My Bookshelf</h1>
     <div class="bookshelf-container">
         <div class="bookshelf">
-            <div class="book" onclick="openBook('aboutbook.html')">
+            <div class="book" onclick="openBook(this, 'aboutbook.html')">
                 <div class="book-cover">
                     <h2>About Me</h2>
                 </div>
             </div>
-            <div class="book" onclick="openBook('projectbook.html')">
+            <div class="book" onclick="openBook(this, 'projectbook.html')">
                 <div class="book-cover">
                     <h2>Projects</h2>
                 </div>
@@ -97,8 +129,28 @@
     <iframe id="bookFrame" src=""></iframe>
 
     <script>
-        function openBook(bookUrl) {
-            document.getElementById('bookFrame').src = bookUrl;
+        function openBook(bookElement, bookUrl) {
+            // Get the bounding rect of the book
+            const rect = bookElement.getBoundingClientRect();
+            // Calculate the translation values to center the book
+            const translateX = window.innerWidth / 2 - (rect.left + rect.width / 2);
+            const translateY = window.innerHeight / 2 - (rect.top + rect.height / 2);
+
+            // Apply the animation with translation, scaling, and fading out
+            const bookCover = bookElement.querySelector('.book-cover');
+            bookCover.style.transform = `translate(${translateX}px, ${translateY}px) scale(2)`;
+            bookCover.style.opacity = '0';
+
+            // Wait for the animation to complete
+            setTimeout(() => {
+                // Load the book content in the iframe
+                document.getElementById('bookFrame').src = bookUrl;
+                // Show the iframe
+                document.getElementById('bookFrame').classList.add('iframe-visible');
+                // Reset the book position
+                bookCover.style.transform = '';
+                bookCover.style.opacity = '';
+            }, 1000); // Match this duration to the CSS transition duration
         }
     </script>
 </body>

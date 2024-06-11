@@ -21,7 +21,6 @@ body, html {
     width: 50%;
     height: 100%;
     left: 50%;
-    margin-left: -25%;
     transform-origin: left;
     transition: transform 1s, z-index 0.5s, opacity 0.5s;
     background-color: #ffffff; /* Consistent background color for pages */
@@ -68,7 +67,6 @@ body, html {
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     font-size: 24px;
     padding: 20px;
@@ -85,4 +83,55 @@ body, html {
     font-size: 24px;
     padding: 20px;
     border-radius: 0 10px 10px 0;
+}
+
+/* Additional styles for realistic book cover */
+.book-cover {
+    background: linear-gradient(145deg, #3e4a52, #2c3e50); /* Subtle gradient for depth */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.book-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.book-cover::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+/* Spine effect */
+.book-spine {
+    position: absolute;
+    top: 0;
+    left: -25px;
+    width: 25px;
+    height: 100%;
+    background-color: #1c2e40;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px 0 0 5px;
 }

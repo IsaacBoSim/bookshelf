@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshelf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .bookshelf-container {
+            width: 80%;
+            background-color: #8b4513;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .bookshelf {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .book {
+            width: 100px;
+            height: 150px;
+            margin: 0 20px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .book:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 100%;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            background-image: linear-gradient(135deg, #f4f4f4 25%, #ccc 25%, #ccc 50%, #f4f4f4 50%, #f4f4f4 75%, #ccc 75%, #ccc);
+            background-size: 28.28px 28.28px;
+        }
+
+        .book-cover h2 {
+            font-size: 14px;
+            color: #333;
+            transform: rotate(-90deg);
+        }
+
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Bookshelf</h1>
+    <div class="bookshelf-container">
+        <div class="bookshelf">
+            <div class="book" onclick="openBook('aboutbook.html')">
+                <div class="book-cover">
+                    <h2>About Me</h2>
+                </div>
+            </div>
+            <div class="book" onclick="openBook('projectbook.html')">
+                <div class="book-cover">
+                    <h2>Projects</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <iframe id="bookFrame" src=""></iframe>
+
+    <script>
+        function openBook(bookUrl) {
+            document.getElementById('bookFrame').src = bookUrl;
+        }
+    </script>
+</body>
+</html>

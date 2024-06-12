@@ -7,13 +7,25 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class="book">
+        <div class="sidebar">
+            <a href="#" onclick="navigateToPage(0)">Cover Page</a>
+            <a href="#" onclick="navigateToPage(1)">Page 1</a>
+            <a href="#" onclick="navigateToPage(2)">Page 2</a>
+            <a href="#" onclick="navigateToPage(3)">Page 3</a>
+            <a href="#" onclick="navigateToPage(4)">End Cover Page</a>
+        </div>
+
         <div class="page" id="cover-page" style="z-index: 4">
             <div class="front" id="cover-front" >
-                <h1>Project Cover</h1>
-                <p>Welcome to my portfolio</p>
+                <div class="book-spine"></div>
+
+                <h1>Projects Cover</h1>
+                <p>Welcome to my projects</p>
             </div>
             <div class="back">
+
                 <!-- Optional: Content for the back of the cover -->
             </div>
         </div>
@@ -21,7 +33,7 @@
         <!-- Inner Pages -->
         <div class="page" id="page1" style="z-index: 3">
             <div class="front" id="project1-content">
-                <!-- Content from project1.html will be loaded here -->
+                <!-- Content from hobby1.html will be loaded here -->
             </div>
             <div class="back">
                 <!-- Blank back page -->
@@ -31,7 +43,7 @@
         <!-- Inner Pages -->
         <div class="page" id="page2" style="z-index: 2">
             <div class="front" id="project2-content">
-                <!-- Content from project2.html will be loaded here -->
+                <!-- Content from hobby3.html will be loaded here -->
             </div>
             <div class="back">
                 <!-- Blank back page -->
@@ -41,7 +53,7 @@
         <!-- Inner Pages -->
         <div class="page" id="page3" style="z-index: 1">
             <div class="front" id="project3-content">
-                <!-- Content from project2.html will be loaded here -->
+                <!-- Content from hobby3.html will be loaded here -->
             </div>
             <div class="back">
                 <!-- Blank back page -->
@@ -54,6 +66,8 @@
                 <!-- Optional: Content for the front of the end cover -->
             </div>
             <div class="back" id="cover-back">
+                <div class="book-spine"></div>
+
                 <!-- Blank back page -->
             </div>
         </div>
@@ -72,13 +86,13 @@
                 .catch(error => console.error('Error loading content:', error));
         }
 
-        // Load content from project1.html into the element with id 'about1-content'
+        // Load content from hobby1.html into the element with id 'about1-content'
         loadContent('projectbook/project1.html', 'project1-content');
 
-        // Load content from project2.html into the element with id 'about2-content'
+        // Load content from hobby3.html into the element with id 'about2-content'
         loadContent('projectbook/project2.html', 'project2-content');
 
-        // Load content from project3.html into the element with id 'about3-content'
+        // Load content from hobby2.html into the element with id 'about3-content'
         loadContent('projectbook/project3.html', 'project3-content');
     </script>
 

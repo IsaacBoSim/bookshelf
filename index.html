@@ -22,27 +22,50 @@
         }
 
         .bookshelf-container {
-            width: 80%;
+            width: 40%;
             background-color: #8b4513;
-            padding: 20px;
+            background-image: url('https://www.transparenttextures.com/patterns/wood.png'); /* Wood texture */
+            padding: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin: 20px 0;
             border-radius: 10px;
+            position: relative;
+        }
+
+        .shelf {
+            width: 100%;
+            height: 15px;
+            background-color: #5d3a1a;
+            background-image: url('https://www.transparenttextures.com/patterns/wood.png'); /* Wood texture */
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .divider {
+            width: 2px;
+            height: 100%;
+            background-color: #4b2e12;
+            position: absolute;
+            left: 50%;
+            top: 0;
         }
 
         .bookshelf {
             display: flex;
             justify-content: center;
             align-items: flex-end;
+            padding: 10px;
         }
 
         .book {
-            width: 100px;
+            width: 35px;
             height: 150px;
-            margin: 0 20px;
+            margin: 0 5px;
             perspective: 1000px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
         .book:hover {
@@ -55,17 +78,54 @@
             height: 100%;
             background-color: #2c3e50;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
+            border-radius: 2px;
             color: white;
+            transition: transform 1s, opacity 1s;
+            position: relative;
+            z-index: 1;
         }
 
-        .book-cover h2 {
-            font-size: 14px;
-            color: white;
-            transform: rotate(-90deg);
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background-color: #1c2e40;
+            top: -10px;
+            border-radius: 2px 2px 0 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: -1;
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background-color: #1c2e40;
+            bottom: -10px;
+            border-radius: 0 0 2px 2px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: -1;
+        }
+
+        .book-title {
+            font-size: 12px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: center;
+        }
+
+        .book-author {
+            font-size: 10px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: center;
+            margin-top: 10px;
         }
 
         iframe {
@@ -75,30 +135,101 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
             border-radius: 10px;
+            display: none; /* Initially hide the iframe */
+        }
+
+        /* Animation styles */
+        .animate {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+            transition: transform 1s, opacity 1s;
+        }
+
+        .iframe-visible {
+            display: block;
         }
     </style>
 </head>
 <body>
     <h1>My Bookshelf</h1>
     <div class="bookshelf-container">
+        <div class="shelf">
+            <div class="divider"></div>
+        </div>
         <div class="bookshelf">
-            <div class="book" onclick="openBook('aboutbook.html')">
+            <div class="book" onclick="openBook(this, 'aboutbook.html')">
                 <div class="book-cover">
-                    <h2>About Me</h2>
+                    <div class="book-title">About Me</div>
+                    <div class="book-author">Author Name</div>
                 </div>
             </div>
-            <div class="book" onclick="openBook('projectbook.html')">
+            <div class="book" onclick="openBook(this, 'projectbook.html')">
                 <div class="book-cover">
-                    <h2>Projects</h2>
+                    <div class="book-title">Projects</div>
+                    <div class="book-author">Author Name</div>
                 </div>
             </div>
+            <div class="book" onclick="openBook(this, 'experiencebook.html')">
+                <div class="book-cover">
+                    <div class="book-title">Experience</div>
+                    <div class="book-author">Author Name</div>
+                </div>
+            </div>
+            <div class="book" onclick="openBook(this, 'contactbook.html')">
+                <div class="book-cover">
+                    <div class="book-title">Contact</div>
+                    <div class="book-author">Author Name</div>
+                </div>
+            </div>
+            <div class="book" onclick="openBook(this, 'hobbiesbook.html')">
+                <div class="book-cover">
+                    <div class="book-title">Contact</div>
+                    <div class="book-author">Author Name</div>
+                </div>
+            </div>
+        </div>
+        <div class="shelf">
+            <div class="divider"></div>
         </div>
     </div>
     <iframe id="bookFrame" src=""></iframe>
 
     <script>
-        function openBook(bookUrl) {
-            document.getElementById('bookFrame').src = bookUrl;
+        let currentBook = null;
+
+        function openBook(bookElement, bookUrl) {
+            // Hide the currently opened book, if any
+            if (currentBook) {
+                currentBook.style.transform = '';
+                currentBook.style.opacity = '1';
+                currentBook.style.visibility = 'visible';
+            }
+
+            // Get the bounding rect of the book
+            const rect = bookElement.getBoundingClientRect();
+            // Calculate the translation values to center the book
+            const translateX = window.innerWidth / 2 - (rect.left + rect.width / 2);
+            const translateY = window.innerHeight / 2 - (rect.top + rect.height / 2);
+
+            // Apply the animation with translation, scaling, and fading out
+            const bookCover = bookElement.querySelector('.book-cover');
+            bookCover.style.transform = `translate(${translateX}px, ${translateY}px) scale(2)`;
+            bookCover.style.opacity = '0';
+
+            // Wait for the animation to complete
+            setTimeout(() => {
+                // Load the book content in the iframe
+                document.getElementById('bookFrame').src = bookUrl;
+                // Show the iframe
+                document.getElementById('bookFrame').classList.add('iframe-visible');
+                // Keep the book hidden
+                bookCover.style.visibility = 'hidden';
+                // Update the current book
+                currentBook = bookCover;
+            }, 1000); // Match this duration to the CSS transition duration
         }
     </script>
 </body>
